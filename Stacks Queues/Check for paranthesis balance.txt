@@ -1,0 +1,27 @@
+int ArePair(char a, char b){
+    if(a== '(' && b==')') return 1;
+    if(a== '{' && b=='}') return 1;
+    if(a== '[' && b==']') return 1;
+    else return 0;
+}
+
+int Solution::isValid(string a) {
+    int n = a.size();
+    
+    stack<char>s;
+    
+    for(int i=0; i<n;i++){
+        
+        if(a[i]=='(' || a[i]=='[' || a[i]=='{'  )
+        s.push(a[i]);
+        
+        else if(a[i]==')' ||a[i]==']' ||a[i]=='}' ){
+            
+            if(s.empty() || ArePair(s.top(),a[i])==0)
+            return 0;
+            
+            else s.pop();
+        }
+    }
+    return s.empty();
+}

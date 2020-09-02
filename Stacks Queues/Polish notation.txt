@@ -1,0 +1,27 @@
+int Solution::evalRPN(vector<string> &a) {
+    stack<int>s2;
+    int res=1;
+    
+    
+    for(int i=0; i<a.size();i++){
+        if(a[i].size()>1 || isdigit(a[i][0]))
+            s2.push(stoi(a[i]));
+        
+       else{
+           auto n1 =s2.top();
+           s2.pop();
+           auto n2=s2.top();
+           s2.pop();
+           
+           if(a[i]=="+")
+               s2.push(n2+n1);
+            else if(a[i]=="-")
+               s2.push(n2-n1);
+            else if(a[i]=="*")
+               s2.push(n2*n1);
+            else if(a[i]=="/")
+               s2.push(n2/n1);
+       }
+    }
+    return s2.top();
+}

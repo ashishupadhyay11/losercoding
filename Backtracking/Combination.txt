@@ -1,0 +1,51 @@
+
+void solution(int start, vector<int>&a, int b, vector<int>&c, vector<vector<int>>&d){
+
+    int sum=0;
+
+    for(int i=0; i<c.size() ;i++)
+        sum+=c[i];
+    if(sum>b)
+    return;
+    
+    if(sum==b){
+        if(d.size()==0){
+        d.push_back(c);
+        return;
+        }
+        else{
+            int x=d.size()-1;
+            if(d[x].size()==c.size()){
+                for(int i=0; i<d[x].size(); i++){
+                        if(d[x][i]!=c[i]){
+                            d.push_back(c);
+                            return;
+                        }
+                    }
+                    return;
+                }
+                else d.push_back(c);
+            }
+        }
+
+    for(int i=start; i<a.size(); i++){
+
+        c.push_back(a[i]);
+        solution(i+1, a, b, c, d);
+        c.pop_back();
+
+    }
+    return;
+}
+
+
+vector<vector<int> > Solution::combinationSum(vector<int> &a, int b) {
+    vector<int>c;
+    vector<vector<int>>d;
+
+    sort(a.begin(), a.end());
+
+    solution(0, a, b, c, d);
+
+    return d;
+}

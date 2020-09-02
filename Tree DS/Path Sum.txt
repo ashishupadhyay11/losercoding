@@ -1,0 +1,9 @@
+
+
+int Solution::hasPathSum(TreeNode* a, int b) {
+    if(a==NULL) 
+        return 0;
+    else if(a->left == NULL && a->right == NULL && b-a->val==0) 
+        return 1;
+    else return hasPathSum(a->left, b-a->val) || hasPathSum(a->right, b-a->val);
+}

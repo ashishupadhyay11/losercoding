@@ -1,0 +1,26 @@
+
+ListNode* Solution::deleteDuplicates(ListNode* a) {
+    
+    struct ListNode *current, *nextnode;
+    current=a;
+    
+    if(a==NULL || a->next==NULL)
+    return a;
+    nextnode=current->next;
+    
+    while(nextnode!=NULL){
+        
+        if(current->val==nextnode->val){
+            nextnode=nextnode->next;
+        }
+        else 
+        {
+            current->next=nextnode;
+            current=nextnode;
+            nextnode=current->next;
+        }
+        
+    }
+    current->next = nextnode;
+    return a;
+}

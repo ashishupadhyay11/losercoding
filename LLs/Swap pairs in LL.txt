@@ -1,0 +1,30 @@
+
+ListNode* Solution::swapPairs(ListNode* a) {
+    if(a==NULL || a->next == NULL)
+    return a;
+    
+    struct ListNode *current,*nextnode,*temp, *news;
+    current = a;
+    news=current->next;
+    while(current!=NULL){
+        
+        nextnode=current->next;
+        
+        temp=nextnode->next;
+        nextnode->next=current;
+        
+        if(temp == NULL){
+		current->next = NULL;
+		break;
+	    }
+	
+    	if(temp->next == NULL){
+		current->next = temp;
+		break;		
+	    }
+        current->next=temp->next;
+   
+        current = temp;
+    }
+    return news;
+}

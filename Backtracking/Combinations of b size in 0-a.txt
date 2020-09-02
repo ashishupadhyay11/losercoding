@@ -1,0 +1,22 @@
+void solution(int start, int a, int b, vector<int>&v2, vector<vector<int>>&v1){
+    if(b==0){
+        v1.push_back(v2);
+        return;
+    }
+    
+    for(int i=start; i<=a ;i++){
+        v2.push_back(i);
+        solution(i+1,a,b-1, v2, v1);
+        v2.pop_back();
+    }
+    return;
+}
+vector<vector<int> > Solution::combine(int a, int b) {
+    
+    vector<vector<int>>v1;
+    vector<int>v2;
+    solution(1,a,b,v2,v1);
+     
+    return v1;
+}
+

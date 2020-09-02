@@ -1,0 +1,32 @@
+void sortedinsert(struct ListNode **a, struct ListNode* newnode){
+    struct ListNode* current;
+    
+    if(*a==NULL || (*a)->val >= newnode->val){
+        
+        newnode->next=*a;
+        *a=newnode;
+    }
+    else{
+        current = *a;
+        while(current->next!=NULL && current->next->val < newnode->val){
+            current=current->next;
+        }
+        newnode->next=current->next;
+        current->next=newnode;
+    }
+}
+ListNode* Solution::insertionSortList(ListNode* a) {
+    struct ListNode* sorted=NULL;
+    
+    struct ListNode* current = a;
+    
+    while(current!=NULL){
+        struct ListNode* nextnode = current->next;
+        
+        sortedinsert(&sorted, current);
+        current=nextnode;
+    }
+    a=sorted;
+    
+    return a;
+}

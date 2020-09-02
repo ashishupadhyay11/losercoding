@@ -1,0 +1,44 @@
+
+void solve(int start, map<int,string>&keymap, vector<int>&keypresses, vector<string>&ans, string current){
+    if(start==keypresses.size()){
+        ans.push_back(current);
+        return ;
+    }
+    int n = keypresses[start];
+    string letters = keymap[n];
+    for(int i=0; i<letters.size(); i++){
+        solve(start+1, keymap, keypresses, ans, current+letters[i]);
+    }
+}
+
+vector<string> Solution::letterCombinations(string a) {
+    
+    map<int, string>keymap;
+    vector<string>ans;
+    keymap[1]={"1"};
+    keymap[2]={"abc"};
+    keymap[3]={"def"};
+    keymap[4]={"ghi"};
+    keymap[5]={"jkl"};
+    keymap[6]={"mno"};
+    keymap[7]={"pqrs"};
+    keymap[8]={"tuv"};
+    keymap[9]={"wxyz"};
+    keymap[0]={"0"};
+
+    if(a=="0"){
+            ans.push_back("0");
+            return ans;
+    }
+    int pressed=stoi(a);
+    vector<int> keypresses;
+    while(pressed){
+        keypresses.push_back(pressed%10);
+        pressed/=10;
+    }
+    reverse(keypresses.begin(), keypresses.end());
+    
+    solve(0, keymap, keypresses, ans, "");
+    sort(ans.begin(), ans.end());
+    return ans;
+}

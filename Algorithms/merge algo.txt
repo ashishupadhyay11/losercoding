@@ -1,0 +1,55 @@
+int merge_al(int ar[], int l, int m, int h)
+{
+    
+    int c[l+h];
+    
+    int i=0,j=0,k=0;
+    int n1= m-l+1;
+    int n2= h-m;
+
+	int a[n1], b[n2];
+
+	for(; i<n1; i++)
+		a[i]= ar[l+i];
+	
+	for(;j<n2;j++)
+		b[j]= ar[(m+1)+j];
+
+    while(i<n1 && j<n2)
+    {
+        if(a[i]<b[j]) //list one has smaller element
+        {
+            c[k]=a[i];
+            i++;
+        }
+        else {          //list w has smaller element
+            c[k]=b[j];
+            j++;
+        }
+	k++;
+     }
+        for(;i<m;i++) //leftover elements in l1   
+        {          
+            c[k]=a[i];
+            k++;
+        }
+        for(;j<n;j++) //leftover elements in l2
+        {
+            c[k]=b[j];
+            k++;
+        }
+    }
+    return c;
+}
+
+int merge_sort(int ar[], int l, int h)
+{
+	if(l<h)
+	{
+		m=(l+h)/2;
+		merge_sort(ar,l,m);
+		merge_sort(ar,m+1,h);
+		merge(ar,l,m,h);
+	}
+}
+//logn passes, O(nlogn)

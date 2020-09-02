@@ -1,0 +1,22 @@
+int LCA(TreeNode* root, int b, int c){
+    if (root == NULL) return -1;
+    if(root->val == b || root->val == c) return root->val;
+    
+    int left = LCA(root->left, b, c);
+    int right = LCA(root->right, b, c);
+    
+    if(left !=-1 && right != -1) return root->val;
+    
+    return left!=-1 ? left:right;
+}
+
+bool search(TreeNode*  root, int value){
+    if(root == NULL) return false;
+    if(root->val == value) return true;
+    return (search(root->left, value) || search(root->right, value));
+}
+
+
+int Solution::lca(TreeNode* a, int b, int c) {
+    return (search(a,b) && search(a,c))?LCA(a,b,c):-1;
+}

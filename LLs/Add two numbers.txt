@@ -1,0 +1,60 @@
+
+ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+        ListNode* temp_l1 = l1;
+        ListNode* temp_l2 = l2;
+        
+        int size_l1=1, size_l2 = 1;
+        
+        while(temp_l1->next!=nullptr)
+        {
+            temp_l1= temp_l1->next;
+            ++size_l1;
+        }
+        
+        while (temp_l2->next != nullptr)
+        {
+            temp_l2 = temp_l2->next;
+            ++size_l2;
+        }
+        
+        if(size_l1<size_l2)
+        {
+            ListNode* temp = l1;
+            l1=l2;
+            l2=temp;
+            
+            int tempsize = size_l1;
+            size_l1= size_l2;
+            size_l2= tempsize;
+        }
+        
+        temp_l1=l1;
+        int carry = 0;
+        
+        for(int i =0; i<size_l1;++i)
+        {
+            if(l2==nullptr)
+                l1->val += carry;
+            else
+                l1->val += l2->val + carry;               
+            
+            carry = l1->val/10;                         //main
+            l1->val %= 10;                                        
+            
+            if(l1->next!=nullptr)
+            {
+                l1= l1->next;
+                
+                if(l2!=nullptr)
+                    l2=l2->next;   
+            }
+            
+        }
+        if (carry >0)
+        {
+            ListNode* node = new ListNode(carry);     //Add leftover carry
+            l1->next=node;
+        }
+        return temp_l1;
+    }

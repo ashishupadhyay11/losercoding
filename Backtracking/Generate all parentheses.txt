@@ -1,0 +1,27 @@
+void findall(vector<string>&result, string &current, int a, int l1, int l2){
+    if(l1>a || l2>a)
+        return;
+    
+    if(l2>l1)
+        return;
+        
+    if(l1==a && l2==a){
+        result.push_back(current);
+        return;
+    }
+    current.push_back('(');
+    findall(result, current, a, l1+1,l2);
+    current.pop_back();
+    
+    current.push_back(')');
+    findall(result, current, a, l1,l2+1);
+    current.pop_back();
+    return;
+}
+vector<string> Solution::generateParenthesis(int a) {
+    vector<string>result;
+    string current="";
+    
+    findall(result,current,a,0,0);
+    return result;
+}

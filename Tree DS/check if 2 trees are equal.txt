@@ -1,0 +1,28 @@
+void solve(TreeNode* root, vector<int> &v){
+    if(root==NULL) return;
+    v.push_back(root->val);
+    solve(root->left, v);
+    solve(root->right, v);
+}
+int Solution::isSameTree(TreeNode* a, TreeNode* b) {
+    vector<int>v1, v2;
+    solve(a, v1);
+    solve(b, v2);
+    if(v1.size()!=v2.size())
+        return 0;
+    for(int i=0; i<v1.size(); i++)
+        if(v1[i]!=v2[i])
+            return 0;
+    return 1;
+}
+
+
+int Solution::isSameTree(TreeNode* A, TreeNode* B) {
+        if(!A && !B)
+		return 1;
+        if(A && B && A->val==B->val 
+		&& isSameTree(A->left,B->left) 
+		&& isSameTree(A->right,B->right))
+        		return 1;
+        else return 0;
+}

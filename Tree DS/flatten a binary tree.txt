@@ -1,0 +1,23 @@
+
+void swap(TreeNode* a, queue<TreeNode*>&q){
+    if(a==NULL) return;
+    q.push(a);
+    swap(a->left,q);
+    swap(a->right,q);
+}
+
+TreeNode* Solution::flatten(TreeNode* a) {
+    if(a==NULL) return a;
+    queue<TreeNode*>q;
+    swap(a,q);
+    TreeNode* ans=a;
+    q.pop();
+    
+    while(!q.empty()){
+        a->left = NULL;
+        a->right = q.front();
+        a=a->right;
+        q.pop();
+    }
+    return ans;
+}

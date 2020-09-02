@@ -1,0 +1,35 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ int islesser(TreeNode* a, int value){
+     if(a==NULL) return 1;
+     
+     if(a->val <= value 
+     && islesser(a->left, value) 
+     && islesser(a->right, value))
+        return 1;
+     else return 0;
+ }
+ int issubtreegreater(TreeNode* a, int value){
+     if(a==NULL) return 1;
+     
+     if(a->val > value 
+     && issubtreegreater(a->left, value) 
+     && issubtreegreater(a->right, value))
+        return 1;
+     else return 0;
+ }
+ 
+int Solution::isValidBST(TreeNode* a) {
+    if(a==NULL) return 1;
+    if(islesser(a->left, a->val) && issubtreegreater(a->right,a->val)
+        && isValidBST(a->left) && isValidBST(a->right))
+        return 1;
+    else return 0;
+}

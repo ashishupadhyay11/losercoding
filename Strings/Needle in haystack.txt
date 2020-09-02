@@ -1,0 +1,22 @@
+int Solution::strStr(const string a, const string b) {
+    
+    int n1= a.size(), n2=b.size(), i=0, j=0;
+    
+    if((n2>n1) || n1==0 || n2==0)
+    return -1;
+    
+    for(; i<n1; i++)
+    {
+        j=0;
+        for(; j<n2; j++)
+            if(a[i+j]!=b[j])
+                break;
+            
+        if(j==n2)
+        {
+            return i;
+            break;
+        }
+    }
+     return -1;
+}

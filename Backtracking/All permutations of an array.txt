@@ -1,0 +1,41 @@
+void res(vector<int>&a, vector<int>&b, vector<vector<int>>&v, int *visited){
+    
+    int f=0;
+    for(int i=0; i<a.size();i++){
+        if(visited[i]==0){
+            f=1;
+            break;
+        }
+                
+    }
+    
+    if(f==0){
+        v.push_back(b);
+        return;
+    }
+    
+    for(int i=0; i<a.size();i++){
+        if(!visited[i]){
+            
+            visited[i]=1;
+            
+            b.push_back(a[i]);
+            res(a, b,v,visited);
+            
+            visited[i]=0;
+            b.pop_back();
+        }
+    }
+    
+}
+vector<vector<int> > Solution::permute(vector<int> &a) {
+    int n =a.size();
+    int visited[n];
+    vector<vector<int>>v;
+    vector<int>b;
+    v.clear();
+    if(n==0) return v;
+    memset(visited, 0, n * sizeof(int));
+    res(a,b,v, visited);
+    return v;
+}

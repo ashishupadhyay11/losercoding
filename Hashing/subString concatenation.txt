@@ -1,0 +1,27 @@
+vector<int> Solution::findSubstring(string s, const vector<string> &l) {
+    int s1=s.size();
+    int s2=l.size();
+    int s3=l[0].size();
+    
+    int subsize=s3*s2;
+    vector<int>res;
+    unordered_map<string, int>m1,m2;
+    
+    for(auto i:l)
+        m1[i]++;
+    
+    for(int i=0; i<s1-subsize+1;i++){
+        for(int j=i; j<i+subsize;j+=s3)
+            m2[s.substr(j,s3)]++;
+        
+        bool found=true;
+        for(auto it: m2)
+            if(m1[it.first] != it.second) 
+                found=false;
+        if(found)
+            res.push_back(i);
+            m2.clear();
+    }
+    
+    return res;
+}

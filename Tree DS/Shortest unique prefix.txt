@@ -1,0 +1,48 @@
+struct node{
+    int fre;
+    node *ar[26];
+    node(){
+        fre = 0;
+        for(int i = 0; i<26;i++) 
+            ar[i]=NULL;
+    }
+};
+
+void add(node* root, string s, int index){
+    if(index==s.size()) 
+        return;
+    if(root->ar[s[index]-'a']==NULL) 
+        root->ar[s[index]-'a'] = new node();
+    
+    root->ar[s[index]-'a']->fre++;
+    add(root->ar[s[index]-'a'], s, index+1);
+}
+
+int find(node* root, string s, int index){
+    if(root->ar[s[index]-'a']->fre==1) 
+        return index;
+    if(root->ar[s[index]-'a']!=NULL)
+        return find(root->ar[s[index]-'a'], s, index+1);
+    return -1;
+}
+
+vector<string> Solution::prefix(vector<string> &a) {
+    int n = a.size();
+    vector<string>v;
+    node* root = new node();
+    for(int i =0; i<n;i++) 
+        add(root, a[i], 0);
+        
+    for(int i=0; i<n;i++){
+        int index = find(root, a[i], 0);
+        string s = "";
+        for(auto it: a[i]){
+            if(index<0)
+                break;
+            s+=it;
+            index--;
+        }
+        v.push_back(s);
+    }
+    return v;
+}

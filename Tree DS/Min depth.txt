@@ -1,0 +1,21 @@
+
+int Solution::minDepth(TreeNode* a) {
+    if(a!=NULL){
+    
+        if(a->left == NULL && a->right == NULL) return 1;
+    
+        else{
+            int left = INT_MAX;
+            int right = INT_MAX;
+            
+            if(a->left!=NULL)
+                left = minDepth(a->left);
+                
+            if(a->right!=NULL)
+                right = minDepth(a->right);
+                
+            return min(left, right)+1;
+        }
+    }
+    return 0;
+}

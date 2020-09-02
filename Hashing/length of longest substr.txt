@@ -1,0 +1,21 @@
+int Solution::lengthOfLongestSubstring(string a) {
+    int ma=1;
+
+    int n=a.size();
+    if(n<=1)
+        return n;
+    unordered_map<char, int>mp;
+    int start=0, end=0, curr=1;
+
+    while(end<n){
+        mp[a[end]]++;
+
+        while(mp[a[end]]>1)
+            mp[a[start++]]--;
+
+        curr=end-start+1;
+        ma=max(ma,curr);
+        end++;
+    }
+    return ma;
+}

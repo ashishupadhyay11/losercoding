@@ -1,0 +1,17 @@
+
+ int solve (TreeNode* root, int &b){
+     if(!root)
+        return 0;
+        
+    int left = solve(root->left, b);
+    if(left)
+        return left;
+    b=b-1;
+    if(b==0) return root->val;
+    int right = solve(root->right, b);
+    return right;
+ }
+int Solution::kthsmallest(TreeNode* root, int b) {
+    return solve(root,b); 
+    
+}

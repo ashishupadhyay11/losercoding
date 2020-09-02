@@ -1,0 +1,37 @@
+struct ListNode *s, *head=NULL;
+ void sortingpointer(ListNode* x, ListNode* y){
+     if(x->val <= y->val){
+        s = x;
+        x=x->next;
+     }
+     else{
+         s = y;
+         y=y->next;
+     }
+     head=s;
+         
+     while(x!=NULL && y!=NULL){
+         if(x->val <= y->val){
+             s->next=x;
+             s=x;
+             x=s->next;
+         }
+         else{
+             s->next=y;
+             s=y;
+             y=s->next;
+         }
+     }
+     if(x!=NULL) s->next=x;
+     if(y!=NULL) s->next=y;
+     s=head;
+ }
+
+
+ListNode* Solution::mergeKLists(vector<ListNode*> &a) {
+    s=a[0];
+    for(int i=1; i<a.size(); i++)
+        sortingpointer(s,a[i]);
+        
+    return s;
+}

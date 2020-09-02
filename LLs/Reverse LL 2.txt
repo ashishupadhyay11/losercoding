@@ -1,0 +1,41 @@
+ListNode* Solution::reverseBetween(ListNode* a, int m, int n) {
+
+    struct ListNode *current,*nextnode, *prev, *connect, *tail;
+
+    if(a==NULL  || a->next==NULL)
+        return a;
+    
+    current=a;
+    prev=NULL;
+    
+    while(m>1){
+        prev=current;
+        current=current->next;
+        m--;
+        n--;
+    }
+    
+    connect=prev;
+    tail = current;
+    
+    while(n>0){
+        
+        nextnode=current->next;
+        current->next=prev;
+
+        prev=current;
+        current=nextnode;
+       
+        n--;
+    }
+     if(connect!=NULL){
+         connect->next=prev;
+     }
+     else{
+         a=prev;
+     }
+     
+     tail->next=current;
+     
+    return a;
+}

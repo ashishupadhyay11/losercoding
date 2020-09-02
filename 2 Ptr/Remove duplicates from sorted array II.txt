@@ -1,0 +1,19 @@
+int Solution::removeDuplicates(vector<int> &a) {
+    int index=1;
+    
+        if(a.size()==0)
+            return 0;
+            
+         if(a.size()==1)
+            return a.size();   
+            
+        int left =2, right =2;
+        
+        while(right<a.size())
+        {
+            if(a[left-2]!=a[right])
+                a[left++]=a[right];
+            right++;
+        }
+        return left;
+}

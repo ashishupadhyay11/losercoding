@@ -1,0 +1,18 @@
+int path(TreeNode* a, int &result){
+    if(!a)
+        return 0;
+    
+    int left = path(a->left, result);
+    int right = path(a->right, result);
+    
+    int ms = max(max(left, right)+a->val, a->val);
+    int m2 = max(ms, left+right+a->val);
+    result = max(result, m2);
+    
+    return ms;
+}
+int Solution::maxPathSum(TreeNode* a) {
+    int result = INT_MIN;
+    path(a, result);
+    return result;
+}

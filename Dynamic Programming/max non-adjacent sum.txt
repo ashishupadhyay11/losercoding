@@ -1,0 +1,15 @@
+unordered_map<int, int>dp;
+int go(vector<vector<int>>&a, int c, int i){
+    if(i>=c) return 0;
+    if(dp.find(i)!=dp.end())
+        return dp[i];
+    int sum = 0;
+    int fo = max(a[0][i], a[1][i])+go(a,c,i+2);
+    int so = go(a,c,i+1);
+    sum+=max(fo,so);
+    return dp[i]=sum;
+}
+int Solution::adjacent(vector<vector<int> > &a){
+    return go(a,a[0].size(), 0);
+}
+

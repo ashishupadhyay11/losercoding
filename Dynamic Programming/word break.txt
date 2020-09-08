@@ -1,0 +1,18 @@
+bool helper(string a, vector<string>&b, int pos, vector<bool>&dp){
+    if(pos==a.length()) 
+        return true;
+    if(dp[pos]==false)
+        return false;
+    string temp="";
+    for(int i=pos; i<a.size() && i<pos+15; i++){
+        temp+=a[i];
+        if((find(b.begin(), b.end(), temp)!=b.end()) && helper(a,b,i+1,dp)) //word is present, check for rest of the string
+            return dp[pos]=true;
+    }
+    return dp[pos]=false;
+}
+int Solution::wordBreak(string a, vector<string> &b) {
+    int n = a.size();
+    vector<bool>dp(n,true);
+    return helper(a,b,0,dp);
+}

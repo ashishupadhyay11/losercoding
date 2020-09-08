@@ -1,0 +1,21 @@
+int sol(string a, string b, int i, int j, vector<vector<int>>&dp){
+    
+    if(a[i]=='\0' || b[j]=='\0')
+        return 0;
+        
+    if(a[i]==b[j]){
+        if(dp[i][j]==0)
+            dp[i][j] = 1 + sol(a,b,i+1,j+1,dp);
+        return dp[i][j];
+    } 
+        
+    else {
+        if(dp[i][j]==0)
+            dp[i][j]=max(sol(a,b,i+1,j,dp), sol(a,b,i,j+1,dp));
+        return dp[i][j];
+    }
+}
+int Solution::solve(string a, string b) {
+    vector<vector<int>> dp(a.size(),vector<int>(b.size(),0));
+    return sol(a, b, 0, 0,dp);
+}

@@ -1,0 +1,17 @@
+int Solution::jump(vector<int> &a) {
+    int n=a.size();
+    if(n<2)
+        return 0;
+    vector<long long>dp(n, -1);
+    dp[0]=0;
+    int i=0, j=1;
+    for(; i<n;i++){
+        if(dp[i]==-1)
+            return -1;
+        while(j<n && j<=a[i]+i){
+                dp[j] = dp[i]+1;
+                j++;
+        }
+    }
+    return dp[n-1];
+}

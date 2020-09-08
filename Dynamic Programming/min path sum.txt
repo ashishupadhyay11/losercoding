@@ -1,0 +1,15 @@
+int solve(vector<vector<int>>&a, vector<vector<int>>&dp, int x, int y){
+    
+    if(x==a.size()-1 && y==a[0].size()-1) //to avoid bottom right condition in second if
+        return a[x][y];
+    if(x==a.size() || y==a[0].size())     //to avoid corner condition
+        return INT_MAX;
+        
+    if(dp[x][y]!=-1)
+        return dp[x][y];
+    return dp[x][y]=min(solve(a,dp,x+1,y),solve(a,dp,x,y+1))+a[x][y];
+}
+int Solution::minPathSum(vector<vector<int> > &a){
+    vector<vector<int>>dp(a.size(),vector<int>(a[0].size(), -1));
+    return solve(a,dp,0,0);
+}

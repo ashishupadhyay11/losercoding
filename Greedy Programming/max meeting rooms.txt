@@ -1,0 +1,23 @@
+int Solution::solve(vector<vector<int> > &a){
+    sort(a.begin(), a.end());
+    priority_queue<int, vector<int>,greater<int>> minendtime;
+    
+    if(a.size()==0)
+        return 0; //no meetings
+    
+    minendtime.push(a[0][1]); //push first meetings end time
+    
+    int maxrooms =1;
+    int presentrooms;
+    
+    for(int i=1; i<a.size(); i++){
+        while(a[i][0]>=minendtime.top() && !minendtime.empty())
+            minendtime.pop(); //meeting is over
+        
+        minendtime.push(a[i][1]); //push next meeting's endtime
+        
+        presentrooms = minendtime.size(); //currently occupied rooms
+        maxrooms = max(maxrooms, presentrooms); //max occupied rooms
+    }
+    return maxrooms;
+}

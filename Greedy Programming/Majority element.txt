@@ -1,0 +1,13 @@
+int Solution::majorityElement(const vector<int> &a){
+    unordered_map<int, int> mp;
+    int n = a.size();
+    for(int i=0; i<n; i++){
+        if(mp.find(a[i])!=mp.end())
+            mp[a[i]]++;
+        else mp[a[i]]=1;
+    }
+    for(auto it=mp.begin(); it!=mp.end(); it++){
+        if(it->second > floor(n/2))
+            return it->first;
+    }
+}

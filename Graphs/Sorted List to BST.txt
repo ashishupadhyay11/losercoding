@@ -1,0 +1,22 @@
+TreeNode* solve(ListNode* a, int left, int right, unordered_map<int, ListNode*> &mp){
+    if(left>right)
+        return NULL;
+    
+    int mid = left + (right-left)/2;
+    TreeNode* root = new TreeNode(mp[mid]->val);
+    root->left = solve(a, left, mid-1, mp);
+    root->right = solve(a, mid+1, right, mp);
+    
+    return root;
+}
+TreeNode* Solution::sortedListToBST(ListNode* a) {
+    unordered_map<int, ListNode*> mp;
+    int i=0;
+    ListNode* current = a;
+    while(a){
+        mp[i++] = a;			//convert LL to array-like map
+        a= a->next;
+    }
+    TreeNode* root = solve(a, 0, i-1, mp);
+    return root;
+}

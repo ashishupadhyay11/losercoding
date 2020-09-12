@@ -1,0 +1,56 @@
+/**
+ * Definition for undirected graph.
+ * struct UndirectedGraphNode {
+ *     int label;
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+
+unordered_map<UndirectedGraphNode*, UndirectedGraphNode*>mp;
+UndirectedGraphNode *Solution::cloneGraph(UndirectedGraphNode *node) {
+    if(!node)
+        return NULL;
+    if(mp.find(node)==mp.end()){
+        mp[node] = new UndirectedGraphNode(node->label);
+        for(auto it: node->neighbors)
+            mp[node]->neighbors.push_back(cloneGraph(it));
+    }
+    return mp[node];
+}
+
+
+
+
+
+void dfs(UndirectedGraphNode* current, UndirectedGraphNode* node, vector<UndirectedGraphNode*>&visited){
+    visited[node->label] = node;
+    
+    for(auto ele: current->neighbors){
+        if(visited[ele->label]==NULL){
+            UndirectedGraphNode* newnode = new UndirectedGraphNode(ele->label);
+            (node->neighbors).push_back(newnode);
+            dfs(ele,newnode,visited);
+        }
+        else (node->neighbors).push_back(visited[ele->label]);
+    }
+}
+UndirectedGraphNode *Solution::cloneGraph(UndirectedGraphNode *node) {
+    if(node==NULL)
+        return NULL;
+    
+    vector<UndirectedGraphNode*> visited(1000,NULL);
+    UndirectedGraphNode* copy = new UndirectedGraphNode(node->label);
+    visited[node->label] = copy;
+    
+    //iterate for all neighbors
+    for(auto current: node->neighbors){
+        if(visited[current->label]==NULL){
+            UndirectedGraphNode* newnode = new UndirectedGraphNode(current->label);
+            (copy->neighbors).push_back(newnode);
+            dfs(current,newnode,visited);
+        }
+        else (copy->neighbors).push_back(visited[current->label]);
+    }
+    return copy;
+}

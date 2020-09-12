@@ -1,0 +1,44 @@
+Using queue:
+vector<vector<int> > Solution::levelOrder(TreeNode* a) {
+    queue<TreeNode*> q;
+    vector<vector<int>>result;
+    if(!a)
+        return result;
+    q.push(a);
+    q.push(NULL);
+    vector<int>current;
+    while(!q.empty()){
+        TreeNode* temp = q.front();
+        q.pop();
+        if(temp){
+            current.push_back(temp->val);
+            if(temp->left) q.push(temp->left);
+            if(temp->right) q.push(temp->right);
+        }
+        else{
+            result.push_back(current);
+            current.clear();
+            if(q.empty()) 
+                break;
+            q.push(NULL);			//change level
+        }
+    }
+    return result;
+}
+
+Using DFS:
+vector<vector<int>>result;
+void dfs(TreeNode* a, int h=0){
+    if(a==NULL)
+        return;
+    if(result.size()==h) 
+        result.resize(h+1);
+    result[h].push_back(a->val);
+    dfs(a->left, h+1);
+    dfs(a->right, h+1);
+}
+vector<vector<int> > Solution::levelOrder(TreeNode* a) {
+    result.clear();
+    dfs(a);
+    return result;
+}

@@ -1,0 +1,23 @@
+bool dfs(int i,vector<vector<int>>&adj, vector<bool>visited){
+    if(visited[i])
+        return true;
+    
+    visited[i]=true;
+    for(int j=0; j<adj[i].size();j++)
+        if(dfs(adj[i][j],adj,visited))
+            return true;
+    return false;
+}
+int Solution::solve(int a, vector<int> &b, vector<int> &c){
+    vector<vector<int>>adj(a);
+    for(int i=0; i<b.size() ;i++)
+        adj[b[i]-1].push_back(c[i]-1);
+    
+    vector<bool>visited(a, false);
+    
+    for(int i=0; i<a; i++)
+        if(dfs(i,adj,visited))
+            return 0;
+    return 1;
+}
+https://www.youtube.com/watch?v=kXy0ABd1vwo

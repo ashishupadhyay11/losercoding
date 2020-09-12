@@ -1,0 +1,41 @@
+struct cell{
+    int x;
+    int y;
+    int dist; //number of moves
+    cell() {}
+    cell(int x, int y, int dist): x(x), y(y), dist(dist) {}
+};
+bool isvalid(int x, int y, int a, int b){
+    if((x>=0 && x<a) && (y>=0 && y<b))
+        return true;
+    return false;
+}
+int Solution::knight(int a, int b, int c, int d, int e, int f) {
+    queue<cell>q;
+    cell src(c-1, d-1, 0);
+    vector<vector<bool>>visited(a, vector<bool>(b, false));
+    q.push(src);                       //push source into q
+    visited[c-1][d-1]=true;             //mark the source visited
+    int dx[] = {-2,2,2,-2,1,-1,1,-1};  //possible move indices
+    int dy[] = {-1,-1,1,1,-2,-2,2,2};
+    int x,y;
+    while(!q.empty()){
+        cell c = q.front();
+        q.pop();
+        
+        if(c.x==e-1 && c.y==f-1)
+            return c.dist;              //min number of moves
+            
+        for(int i=0; i<8; i++){
+            x= c.x + dx[i];             //update index after move
+            y= c.y + dy[i];
+            
+            if(isvalid(x,y,a,b) && !visited[x][y]){
+                visited[x][y]=true;
+                cell next(x,y,c.dist+1);
+                q.push(next);
+            }
+        }
+    }
+    return -1;
+}
